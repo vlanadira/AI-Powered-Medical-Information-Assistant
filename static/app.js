@@ -200,6 +200,71 @@ async function check() {
 }
 check();
 
+/* ---------- Emergency call helper ---------- */
+const emergencyNumbers = {
+  'us-ca': { number: '911', label: '911' },
+  uk: { number: '999', label: '999 (or 112)' },
+  eu: { number: '112', label: '112' },
+  au: { number: '000', label: '000' },
+  nz: { number: '111', label: '111' },
+  in: { number: '112', label: '112' },
+  id: {
+    number: '112',
+    label: '112 (where available)',
+    description: '112 where available; 119 for medical emergencies',
+    additionalNumber: '119',
+    additionalLabel: '119 (medical emergencies)'
+  }
+};
+
+$('emergencyRegion').addEventListener('change', event => {
+  const emergency = emergencyNumbers[event.target.value];
+  const callLink = $('emergencyCall');
+  const additionalCallLink = $('emergencyAdditionalCall');
+  const numberLabel = $('emergencyNumber');
+  const result = $('emergencyResult');
+  if (!emergency) {
+    callLink.removeAttribute('href');
+    additionalCallLink.removeAttribute('href');
+    additionalCallLink.hidden = true;
+    result.hidden = true;
+    return;
+  }
+
+  callLink.href = `tel:${emergency.number}`;
+  callLink.textContent = `Call ${emergency.label}`;
+  callLink.setAttribute('aria-label', `Call emergency services at ${emergency.label}`);
+  numberLabel.textContent = `Emergency number: ${emergency.description || emergency.label}`;
+  if (emergency.additionalNumber) {
+    additionalCallLink.href = `tel:${emergency.additionalNumber}`;
+    additionalCallLink.textContent = `Call ${emergency.additionalLabel}`;
+    additionalCallLink.setAttribute('aria-label', `Call emergency services at ${emergency.additionalLabel}`);
+    additionalCallLink.hidden = false;
+  } else {
+    additionalCallLink.removeAttribute('href');
+    additionalCallLink.hidden = true;
+  }
+  result.hidden = false;
+});
+
+$('emergencyToggle').addEventListener('click', () => {
+  const panel = $('emergencyPanel');
+  const opening = panel.hidden;
+  panel.hidden = !opening;
+  $('emergencyToggle').setAttribute('aria-expanded', String(opening));
+
+  if (opening) {
+    $('emergencyRegion').focus();
+    return;
+  }
+
+  $('emergencyRegion').selectedIndex = 0;
+  $('emergencyCall').removeAttribute('href');
+  $('emergencyAdditionalCall').removeAttribute('href');
+  $('emergencyAdditionalCall').hidden = true;
+  $('emergencyResult').hidden = true;
+});
+
 /* ---------- Image handling ---------- */
 function setImage(file) {
   if (!file) return;

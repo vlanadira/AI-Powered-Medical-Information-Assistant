@@ -87,6 +87,37 @@ button{cursor:pointer}
 }
 .notice svg{flex:none}
 
+/* ---------- Emergency call helper ---------- */
+.emergency-control{display:flex;flex-direction:column;align-items:flex-end;gap:8px;margin-top:10px}
+.emergency-toggle{
+  border:0;border-radius:10px;padding:10px 16px;
+  background:#b42318;color:#fff;font-weight:700;font-size:13px;
+}
+.emergency-toggle:hover{background:#912018}
+.emergency-panel{
+  width:100%;display:grid;gap:10px;padding:12px;
+  border:1px solid #f0c4c1;border-radius:12px;background:#fff7f6;color:#7f1d1d;
+  font-size:12px;
+}
+.emergency-region,.emergency-result{display:flex;align-items:center;gap:10px}
+.emergency-region{flex-wrap:wrap}
+.emergency-panel select{
+  min-width:0;padding:8px 10px;border:1px solid #e8bcbc;border-radius:8px;
+  background:#fff;font-size:12px;
+}
+.emergency-result{flex-wrap:wrap}
+.emergency-number{margin:0;font-weight:700}
+.emergency-disclaimer{margin:0;color:#784848;font-size:11.5px;line-height:1.4}
+.emergency-call{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:9px 13px;border-radius:9px;background:#b42318;color:#fff;
+  font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;
+}
+.emergency-call:hover{background:#912018}
+.emergency-call:focus-visible,.emergency-toggle:focus-visible,.emergency-panel select:focus-visible{
+  outline:3px solid #f3a5a0;outline-offset:2px;
+}
+
 /* ---------- Messages ---------- */
 #messages{
   flex:1;min-height:0;

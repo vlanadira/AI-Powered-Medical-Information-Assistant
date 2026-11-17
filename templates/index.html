@@ -83,6 +83,30 @@
           </button>
         </div>
       </div>
+      <div class="emergency-control">
+        <button id="emergencyToggle" class="emergency-toggle" type="button" aria-expanded="false" aria-controls="emergencyPanel">Call emergency</button>
+        <div id="emergencyPanel" class="emergency-panel" hidden>
+          <div class="emergency-region">
+            <label for="emergencyRegion">Choose your current country or region</label>
+            <select id="emergencyRegion">
+              <option value="" selected disabled>Select country/region</option>
+              <option value="us-ca">United States or Canada</option>
+              <option value="uk">United Kingdom</option>
+              <option value="eu">European Union</option>
+              <option value="au">Australia</option>
+              <option value="nz">New Zealand</option>
+              <option value="in">India</option>
+              <option value="id">Indonesia</option>
+            </select>
+          </div>
+          <div id="emergencyResult" class="emergency-result" hidden>
+            <p id="emergencyNumber" class="emergency-number" aria-live="polite"></p>
+            <a id="emergencyCall" class="emergency-call"></a>
+            <a id="emergencyAdditionalCall" class="emergency-call" hidden></a>
+          </div>
+          <p class="emergency-disclaimer">No location is detected or shared. Numbers are provided only for the listed regions; if yours isn't listed, use your local emergency number.</p>
+        </div>
+      </div>
       <p class="hint">Press <kbd>Enter</kbd> to send, <kbd>Shift</kbd> + <kbd>Enter</kbd> for a new line</p>
     </form>
 
