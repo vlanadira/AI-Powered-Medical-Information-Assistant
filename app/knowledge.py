@@ -5,7 +5,7 @@ from app.config import settings
 
 @lru_cache()
 def get_embedding_model():
-    return SentenceTransformer('all-MiniLM-L6-v2')
+    return SentenceTransformer(settings.embed_model)
 
 @lru_cache()
 def clients():
@@ -15,7 +15,8 @@ def clients():
 
 def ensure_index():
     pc = clients()
-    if not pc.has_index(settings.pinecone_index):
+    existing_indexes = [idx["name"] for idx in pc.list_indexes()]
+    if settings.pinecone_index not in existing_indexes:
         pc.create_index(
             name=settings.pinecone_index,
             dimension=384,
@@ -33,12 +34,20 @@ def search_kb(query, top_k=5):
     index = ensure_index()
     vector = embed([query])[0]
     result = index.query(vector=vector, top_k=top_k, include_metadata=True)
-    return [
-        {
-            "page": m.metadata.get("page"),
-            "text": m.metadata.get("text", ""),
-            "score": round(m.score, 3),
-            "source": "Gale Encyclopedia (2002)"
-        }
-        for m in result.matches if m.score >= 0.30
-    ]
+    
+    matches = result.get("matches", []) if isinstance(result, dict) else getattr(result, "matches", [])
+    
+    formatted_results = []
+    for m in matches:
+        metadata = m.get("metadata", {}) if isinstance(m, dict) else getattr(m, "metadata", {})
+        score = m.get("score", 0.0) if isinstance(m, dict) else getattr(m, "score", 0.0)
+        
+        if score >= 0.30:
+            formatted_results.append({
+                "page": metadata.get("page"),
+                "text": metadata.get("text", ""),
+                "score": round(score, 3),
+                "source": metadata.get("source", "Gale Encyclopedia (2002)")
+            })
+            
+    return formatted_results
