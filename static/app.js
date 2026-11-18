@@ -9,7 +9,7 @@ let lastAnswer = '';
 
 const headers = () => {
   const h = {};
-  const token = $('token').value.trim();
+  const token = $('token')?.value.trim() || '';
   if (token) h.Authorization = `Bearer ${token}`;
   return h;
 };
