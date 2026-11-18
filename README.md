@@ -10,7 +10,7 @@
 
 **Stack:** LangGraph · FastAPI · Pinecone · Groq · Sentence-Transformers · Tavily · HTML / CSS / JavaScript
 
-![Architecture](docs/MedIQ AI Architecture.png)
+![Architecture](docs/MedIQ%20AI%20Architecture.png)
 
 ---
 
@@ -172,7 +172,7 @@ AI-Powered-Medical-Information-Assistant/
 │   └── Medical_book.pdf       # Reference PDF (Gale Encyclopedia of Medicine)
 │
 ├── docs/
-│   └── project-architecture.png
+│   └── MedIQ AI Architecture.png
 │
 ├── static/
 │   ├── app.js                 # Browser controls (chat, mic, camera, upload)
