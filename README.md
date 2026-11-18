@@ -10,7 +10,7 @@
 
 **Stack:** LangGraph · FastAPI · Pinecone · Groq · Sentence-Transformers · Tavily · HTML / CSS / JavaScript
 
-![Architecture](docs/project-architecture.png)
+![Architecture](docs/MedIQ AI Architecture.png)
 
 ---
 
